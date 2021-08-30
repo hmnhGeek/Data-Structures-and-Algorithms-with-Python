@@ -62,6 +62,38 @@ class LinkedList:
 
     def prepend(self, data):
         self.insert(data)
+
+    def remove(self, index=0):
+        if index == 0:
+            temp = self.head
+            self.head = self.head.next
+            del temp
+
+            self.length -= 1
+
+            if self.length == 0:
+                self.tail = self.head
+
+        else:
+            temp = self.head
+            count = 0
+
+            while temp != None and count != index:
+                prev = temp
+                temp = temp.next
+                count += 1
+
+            else:
+                if count == index:
+                    if temp != None:
+                        prev.next = temp.next
+
+                        if temp == self.tail:
+                            self.tail = prev
+
+                        del temp
+                        self.length -= 1
+                
                 
     def show(self):
         temp = self.head
