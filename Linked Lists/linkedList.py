@@ -40,6 +40,12 @@ class LinkedList:
                 new_node.next = temp
                 prev.next = new_node
                 self.length += 1
+
+    def append(self, data):
+        self.insert(data, self.length)
+
+    def prepend(self, data):
+        self.insert(data)
                 
     def show(self):
         temp = self.head
