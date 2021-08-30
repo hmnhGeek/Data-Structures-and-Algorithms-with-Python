@@ -6,6 +6,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.length = 0
 
     def length(self):
         leng = 0
@@ -17,27 +18,37 @@ class LinkedList:
 
         return leng
 
-    def add(self, data, index=0):
+    def insert(self, data, index=0):
         new_node = Node(data)
 
-        if index = 0:
+        if index == 0:
             new_node.next = self.head
             self.head = new_node
+            self.length += 1
             
-        elif index >= self.length():
+        else:
             temp = self.head
-        
-            while temp.next != None:
-                leng += 1
+            count = 0
+
+            while count != index and temp != None:
+                prev = temp
                 temp = temp.next
 
-            temp.next = new_node
+                count += 1
 
+            else:
+                new_node.next = temp
+                prev.next = new_node
+                self.length += 1
+                
     def show(self):
         temp = self.head
-
-        while temp.next != None:
-            print(temp.data)
+        l = []
+        
+        while temp != None:
+            l.append(temp.data)
             temp = temp.next
+
+        print(l)
 
         
