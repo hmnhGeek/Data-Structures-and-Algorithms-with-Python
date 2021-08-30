@@ -6,6 +6,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.tail = self.head
         self.length = 0
 
     def length(self):
@@ -42,7 +43,22 @@ class LinkedList:
                 self.length += 1
 
     def append(self, data):
-        self.insert(data, self.length)
+        '''
+            We won't use insert() here because that would be O(n).
+            Using a tail variable, we have reduced this insertion to O(1).
+        '''
+
+        if self.head:
+            new_node = Node(data)
+
+            self.tail.next = new_node
+            self.tail = new_node
+            self.length += 1
+
+        else:
+            # this is also O(1)
+            self.insert(data, 0)
+            self.tail = self.head
 
     def prepend(self, data):
         self.insert(data)
