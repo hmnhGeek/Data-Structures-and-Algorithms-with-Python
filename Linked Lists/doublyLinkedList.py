@@ -57,6 +57,9 @@ class DoublyLinkedList:
 
         self.len += 1
 
+    def append(self, data):
+        self.insert(data, self.len)
+
     def info(self):
         return {"head": self.head.data, "tail": self.tail.data, "length": self.len}
 
