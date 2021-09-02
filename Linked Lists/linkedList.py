@@ -93,7 +93,25 @@ class LinkedList:
 
                         del temp
                         self.length -= 1
-                
+
+    def reverse(self):
+        prev = None
+        temp = self.head
+
+        while temp != None:
+            _next = temp.next
+            temp.next = prev
+            prev = temp
+            temp = _next
+
+        # now swap head and tail
+
+        current_head = self.head
+        self.head = self.tail
+        self.tail = current_head
+
+    def info(self):
+        return {'length': self.length, 'head': self.head.data, 'tail': self.tail.data}
                 
     def show(self):
         temp = self.head
@@ -106,3 +124,7 @@ class LinkedList:
         print(l)
 
         
+l = LinkedList()
+
+for i in range(10):
+    l.append(i)
