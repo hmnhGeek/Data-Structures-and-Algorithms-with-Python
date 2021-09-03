@@ -51,11 +51,65 @@ class BinarySearchTree:
 
         return tree
 
+    def is_leaf_node(self, node):
+        return not node.left and not node.right
 
+    def find_min(self, node):
+        if node is not None:
+            currentNode = self.root
+            parentNode = None
+
+            while currentNode.left != None:
+                parentNode = currentNode
+                currentNode = currentNode.left
+            else:
+                return parentNode, currentNode
+
+    def delete(self, data):
+        parentNode = None
+        currentNode = self.root
+        print(self.root.data)
+        print("Current ", currentNode.data)
+
+        while currentNode != None:
+            print(currentNode.data)
+            parentNode = currentNode
+
+            if data > currentNode.data:
+                currentNode = currentNode.right
+            elif data < currentNode.data:
+                currentNode = currentNode.left
+            else:
+                # we found the node
+
+                if self.is_leaf_node(currentNode):
+                    if parentNode.right == currentNode:
+                        parentNode.right = None
+                    else:
+                        parentNode.left = None
+
+                elif currentNode.left == None or currentNode.right == None:
+                    if currentNode.left == None:
+                        if currentNode.right.data < parentNode.data:
+                            parentNode.left = currentNode.right
+                        else:
+                            parentNode.right = currentNode.right
+                    else:
+                        if currentNode.left.data < parentNode.data:
+                            parentNode.left = currentNode.left
+                        else:
+                            parentNode.right = currentNode.left
+
+                else:
+                    # has both children
+                    parent_of_left_leaf_of_right, left_leaf_of_right = self.find_min(currentNode.right)
+                    currentNode.data = left_leaf_of_right.data
+                    parent_of_left_leaf_of_right.left = None
+                    
 bst = BinarySearchTree()
-bst.insert(9)
-bst.insert(10)
-bst.insert(-1)
-bst.insert(100)
-bst.insert(2)
+import random
+
+for i in range(5):
+    bst.insert(random.randint(1, 50))
+    
 print(bst.jsonify(bst.root))
