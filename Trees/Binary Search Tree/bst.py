@@ -56,60 +56,66 @@ class BinarySearchTree:
 
     def find_min(self, node):
         if node is not None:
-            currentNode = self.root
+            currentNode = node
             parentNode = None
 
             while currentNode.left != None:
                 parentNode = currentNode
                 currentNode = currentNode.left
             else:
-                return parentNode, currentNode
+                return currentNode
 
-    def delete(self, data):
-        parentNode = None
-        currentNode = self.root
-        print(self.root.data)
-        print("Current ", currentNode.data)
+    def deleteNode(self, root, data):
+        key = data
 
-        while currentNode != None:
-            print(currentNode.data)
-            parentNode = currentNode
-
-            if data > currentNode.data:
-                currentNode = currentNode.right
-            elif data < currentNode.data:
-                currentNode = currentNode.left
-            else:
-                # we found the node
-
-                if self.is_leaf_node(currentNode):
-                    if parentNode.right == currentNode:
-                        parentNode.right = None
-                    else:
-                        parentNode.left = None
-
-                elif currentNode.left == None or currentNode.right == None:
-                    if currentNode.left == None:
-                        if currentNode.right.data < parentNode.data:
-                            parentNode.left = currentNode.right
-                        else:
-                            parentNode.right = currentNode.right
-                    else:
-                        if currentNode.left.data < parentNode.data:
-                            parentNode.left = currentNode.left
-                        else:
-                            parentNode.right = currentNode.left
-
-                else:
-                    # has both children
-                    parent_of_left_leaf_of_right, left_leaf_of_right = self.find_min(currentNode.right)
-                    currentNode.data = left_leaf_of_right.data
-                    parent_of_left_leaf_of_right.left = None
-                    
+        # Base Case
+        if root is None:
+            return root
+    
+        # If the key to be deleted
+        # is smaller than the root's
+        # key then it lies in  left subtree
+        if key < root.data:
+            root.left = self.deleteNode(root.left, key)
+    
+        # If the kye to be delete
+        # is greater than the root's key
+        # then it lies in right subtree
+        elif(key > root.data):
+            root.right = self.deleteNode(root.right, key)
+    
+        # If key is same as root's key, then this is the node
+        # to be deleted
+        else:
+    
+            # Node with only one child or no child
+            if root.left is None:
+                temp = root.right
+                root = None
+                return temp
+    
+            elif root.right is None:
+                temp = root.left
+                root = None
+                return temp
+    
+            # Node with two children:
+            # Get the inorder successor
+            # (smallest in the right subtree)
+            temp = self.find_min(root.right)
+    
+            # Copy the inorder successor's
+            # content to this node
+            root.data = temp.data
+    
+            # Delete the inorder successor
+            root.right = self.deleteNode(root.right, temp.data)
+    
+        return root                    
 bst = BinarySearchTree()
 import random
 
-for i in range(5):
+for i in range(10):
     bst.insert(random.randint(1, 50))
     
 print(bst.jsonify(bst.root))
