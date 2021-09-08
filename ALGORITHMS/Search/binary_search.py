@@ -1,4 +1,6 @@
 def binary_search(arr, data, left, right):
+    '''This function assumes a sorted arr. Read more at http://geeksquiz.com/binary-search/'''
+
     if arr == []:
         return -1
     else:
