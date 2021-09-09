@@ -16,7 +16,7 @@ def bubble_sort(l):
     
     return l
 
-l = [-3, 10, 6, 4, 0, -1]
+l = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0]
 l = bubble_sort(l)
 
 print(l)
