@@ -111,11 +111,70 @@ class BinarySearchTree:
             # Delete the inorder successor
             root.right = self.deleteNode(root.right, temp.data)
     
-        return root                    
-bst = BinarySearchTree()
-import random
+        return root
 
-for i in range(10):
-    bst.insert(random.randint(1, 50))
-    
-print(bst.jsonify(bst.root))
+    def bf_traversal(self):
+        currentNode = self.root
+
+        bf_list = []
+        queue = [currentNode,]
+
+        while len(queue):
+            currentNode = queue.pop(0)
+            bf_list.append(currentNode.data)
+
+            if currentNode.left:
+                queue.append(currentNode.left)
+
+            if currentNode.right:
+                queue.append(currentNode.right)
+
+        return bf_list
+
+    def bf_traversal_recursive(self, queue, l):
+        if not len(queue):
+            return l
+
+        currentNode = queue.pop(0)
+        l.append(currentNode.data)
+
+        if currentNode.left:
+            queue.append(currentNode.left)
+
+        if currentNode.right:
+            queue.append(currentNode.right)
+
+        return self.bf_traversal_recursive(queue, l)
+
+    def dfs_inorder(self, node, l):
+        if node.left:
+            self.dfs_inorder(node.left, l)
+
+        l.append(node.data)
+
+        if node.right:
+            self.dfs_inorder(node.right, l)
+
+        return l
+
+    def dfs_preorder(self, node, l):
+        l.append(node.data)
+
+        if node.left:
+            self.dfs_preorder(node.left, l)
+
+        if node.right:
+            self.dfs_preorder(node.right, l)
+
+        return l
+
+    def dfs_postorder(self, node, l):
+        if node.left:
+            self.dfs_postorder(node.left, l)
+
+        if node.right:
+            self.dfs_postorder(node.right, l)
+
+        l.append(node.data)
+        return l
+
