@@ -178,3 +178,19 @@ class BinarySearchTree:
         l.append(node.data)
         return l
 
+
+def is_valid_bst(tree):
+    l = tree.bf_traversal()
+
+    for i in range(len(l)):
+        try:
+            if l[i] >= l[2*i + 1] and l[i] <= l[2*i + 2]:
+                continue
+            else:
+                return False
+
+        except IndexError:
+            return True
+
+    return True
+        
