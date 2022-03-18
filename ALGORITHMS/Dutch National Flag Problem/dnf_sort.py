@@ -1,4 +1,10 @@
 def dnf_sort(l):
+    '''
+        O(n) time complexity and O(1) space complexity.
+        Video discussion: https://www.youtube.com/watch?v=yj_14t67Bh0
+    '''
+
+
     low, mid, high = 0, 0, len(l) - 1
 
     while mid < high:
